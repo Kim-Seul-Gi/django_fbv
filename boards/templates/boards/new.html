@@ -1,0 +1,13 @@
+{% extends 'boards/base.html' %}
+{% block body %}
+    <a href="{% url 'boards:index' %}">목록으로 돌아가기</a>
+    
+    
+    <form method='POST'>
+    {% csrf_token %}
+    
+    {{board_form.as_p}}
+    
+    <input type='submit'>
+    </form>
+{% endblock %}
