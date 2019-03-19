@@ -10,3 +10,7 @@ class BoardForm(forms.Form):
                                     'class': 'input-box'  
                                     })
                             )
+                                    
+                                    
+                                    
+            

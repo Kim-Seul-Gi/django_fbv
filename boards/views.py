@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Board
 from .forms import BoardForm
 
@@ -26,10 +26,18 @@ def new(request):
             
             board.save()
             
-            return redirect('boards:index')
+            return redirect(board)
     else:
         board_form = BoardForm()
         
     context = {'board_form':board_form} 
         
     return render(request, 'boards/new.html', context)
+    
+def detail(request, board_pk):
+    # board = Board.objects.get(pk=board_pk)
+    board=get_object_or_404(Board, pk=board_pk) # 없는 pk에 대한 요청을 반환하기 위함.
+    board.hit += 1
+    board.save()
+    context = {'board':board}
+    return render(request, 'boards/detail.html', context)
