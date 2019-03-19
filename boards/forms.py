@@ -1,5 +1,7 @@
 from django import forms
 from .models import Board
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 # form 을 상속받아썼음
 # class BoardForm(forms.Form):
@@ -19,7 +21,8 @@ from .models import Board
 class BoardForm(forms.ModelForm):
     class Meta:
         model = Board
-        fields = ['title','content']
+        fields='__all__'
+        # fields = ['title','content']
         widgets = {'title' : forms.TextInput(attrs={
                                             'placeholder':'제목을 입력해주세요.',
                                             'class':'title'
@@ -34,4 +37,10 @@ class BoardForm(forms.ModelForm):
                             'content':{
                                 'required' : '내용을 반드시 입력해주세요'
                             }
-                        }            
+                        }   
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.helper = FormHelper()
+            self.helper.form_method = 'POST'
+            self.helper.add_input(Submit('submit', '제출~!'))
+            
