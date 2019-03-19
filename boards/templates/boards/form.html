@@ -1,5 +1,6 @@
 {% extends 'boards/base.html' %}
 {% block body %}
+{% load crispy_forms_tags %}
 <a href="{% url 'boards:index' %}">목록으로 돌아가기</a>
 {% if request.resolver_match.url_name == 'new' %}
 <h1>새글 작성</h1>
@@ -10,7 +11,7 @@
 <form method='POST'>
 {% csrf_token %}
 
-{{board_form.as_p}}
+{{board_form|crispy}}
 
 <input type='submit'>
 </form>
